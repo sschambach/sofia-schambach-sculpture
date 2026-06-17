@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sofia Schambach — Figurative Sculptor</title>
+<meta name="description" content="Sofia Schambach — Guatemalan figurative sculptor and academic painter trained at the Barcelona Academy of Art.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#f4f1ec; --ink:#1c1a17; --muted:#8a847b; --line:#ddd6cc;
+    --stage:#16140f; --accent:#9c7b46; --paper2:#ebe6dd;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:#f4f1ec;color:#1c1a17;font-family:'Jost',sans-serif;font-weight:300;line-height:1.7;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 28px}
+  a{color:inherit}
+  h1,h2,h3{font-family:'Cormorant Garamond',serif;font-weight:400}
+
+  /* Nav */
+  nav{position:sticky;top:0;z-index:50;background:rgba(244,241,236,.9);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+  nav .bar{display:flex;align-items:center;justify-content:space-between;height:68px}
+  nav .brand{font-family:'Cormorant Garamond',serif;font-size:1.35rem;letter-spacing:3px;text-transform:uppercase}
+  nav .links a{margin-left:30px;text-decoration:none;font-size:.82rem;letter-spacing:2px;text-transform:uppercase;color:var(--muted);transition:color .2s}
+  nav .links a:hover{color:var(--accent)}
+  @media(max-width:640px){nav .links a{margin-left:16px;font-size:.7rem}nav .brand{font-size:1.05rem;letter-spacing:1px}}
+
+  /* Hero */
+  .hero{position:relative;height:88vh;min-height:520px;overflow:hidden;display:flex;align-items:flex-end}
+  .hero img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 30%}
+  .hero .veil{position:absolute;inset:0;background:linear-gradient(to top,rgba(10,9,7,.72) 0%,rgba(10,9,7,.15) 45%,rgba(10,9,7,.25) 100%)}
+  .hero .inner{position:relative;color:#f6f2ea;padding:0 28px 7vh;max-width:1180px;margin:0 auto;width:100%}
+  .hero h1{font-size:clamp(2.6rem,7vw,5.4rem);font-weight:500;letter-spacing:4px;line-height:1}
+  .hero .tag{margin-top:14px;font-size:clamp(.85rem,2vw,1.05rem);letter-spacing:5px;text-transform:uppercase;font-weight:300;color:#e9e2d6}
+  .hero .sub{margin-top:8px;font-style:italic;font-family:'Cormorant Garamond',serif;font-size:1.15rem;color:#d8cfc0}
+
+  /* Section heading */
+  .sec{padding:90px 0}
+  .sec.alt{background:var(--paper2)}
+  .eyebrow{text-align:center;font-size:.75rem;letter-spacing:4px;text-transform:uppercase;color:var(--accent);margin-bottom:10px}
+  .sec h2{text-align:center;font-size:clamp(2rem,4vw,2.8rem);letter-spacing:2px;margin-bottom:8px}
+  .sec .lead{text-align:center;color:var(--muted);max-width:600px;margin:0 auto 50px;font-size:1rem}
+
+  /* Main carousel (between pieces) */
+  .carousel{position:relative;max-width:1080px;margin:0 auto}
+  .stage{display:grid;grid-template-columns:1.25fr .9fr;gap:0;border:1px solid var(--line);background:#fff;box-shadow:0 18px 50px rgba(40,34,24,.10);overflow:hidden}
+  .stage .imgwrap{position:relative;display:flex;align-items:center;justify-content:center;min-height:560px;padding:24px;transition:background .45s ease}
+  .stage .imgwrap img{max-width:100%;max-height:580px;object-fit:contain;box-shadow:0 8px 30px rgba(0,0,0,.4);transition:opacity .25s ease}
+
+  /* Angle mini-nav inside each piece */
+  .angles{position:absolute;bottom:14px;left:0;right:0;display:flex;justify-content:center;gap:8px;z-index:6}
+  .angle-dot{width:9px;height:9px;border-radius:50%;border:1.5px solid rgba(255,255,255,.55);background:rgba(255,255,255,.15);cursor:pointer;padding:0;transition:.2s}
+  .angle-dot.active{background:#fff;border-color:#fff;transform:scale(1.2)}
+  .imgwrap.on-light .angle-dot{border-color:rgba(20,18,15,.4);background:rgba(20,18,15,.1)}
+  .imgwrap.on-light .angle-dot.active{background:#1c1a17;border-color:#1c1a17}
+
+  .abtn{position:absolute;top:50%;transform:translateY(-50%);width:36px;height:36px;border-radius:50%;border:1px solid rgba(255,255,255,.4);background:rgba(0,0,0,.25);color:#fff;font-size:1.1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:6;transition:.2s;opacity:0}
+  .imgwrap:hover .abtn{opacity:1}
+  .imgwrap.on-light .abtn{border-color:rgba(20,18,15,.3);background:rgba(255,255,255,.55);color:#1c1a17}
+  .abtn:hover{background:var(--accent);color:#fff;border-color:var(--accent)}
+  .abtn.aprev{left:10px}.abtn.anext{right:10px}
+  .angle-count{position:absolute;top:14px;right:16px;font-size:.68rem;letter-spacing:2px;color:rgba(255,255,255,.75);z-index:6}
+  .imgwrap.on-light .angle-count{color:rgba(20,18,15,.55)}
+
+  .credits{padding:48px 42px;display:flex;flex-direction:column;justify-content:center}
+  .credits .num{font-size:.75rem;letter-spacing:3px;color:var(--accent);margin-bottom:18px}
+  .credits h3{font-size:2rem;line-height:1.1;margin-bottom:6px}
+  .credits .meta{margin-top:18px;display:flex;flex-direction:column;gap:14px}
+  .field label{display:block;font-size:.68rem;letter-spacing:2.5px;text-transform:uppercase;color:var(--muted);margin-bottom:3px}
+  .field .val{font-size:1.02rem;color:var(--ink)}
+  .placeholder{display:inline-block;border:1px dashed #c5bcab;border-radius:4px;padding:7px 12px;color:#b3a994;font-size:.85rem;letter-spacing:.5px;background:repeating-linear-gradient(45deg,#fbf9f5,#fbf9f5 8px,#f6f2ea 8px,#f6f2ea 16px)}
+  .credits .note{margin-top:22px;padding-top:18px;border-top:1px solid var(--line);font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.1rem;color:#5e574c}
+
+  @media(max-width:780px){
+    .stage{grid-template-columns:1fr}
+    .stage .imgwrap{min-height:380px}
+    .credits{padding:34px 28px}
+    .abtn{opacity:1}
+  }
+
+  /* Piece-to-piece controls */
+  .cbtn{position:absolute;top:50%;transform:translateY(-50%);width:54px;height:54px;border-radius:50%;border:1px solid var(--line);background:#fff;color:var(--ink);font-size:1.5rem;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 18px rgba(40,34,24,.12);transition:.2s;z-index:5}
+  .cbtn:hover{background:var(--accent);color:#fff;border-color:var(--accent)}
+  .cbtn.prev{left:-22px}.cbtn.next{right:-22px}
+  @media(max-width:780px){.cbtn.prev{left:6px}.cbtn.next{right:6px}.cbtn{width:44px;height:44px}}
+  .dots{display:flex;justify-content:center;gap:9px;margin-top:30px;flex-wrap:wrap}
+  .dot{width:8px;height:8px;border-radius:50%;background:#cfc6b6;border:none;cursor:pointer;padding:0;transition:.2s}
+  .dot.active{background:var(--accent);transform:scale(1.35)}
+  .counter{text-align:center;margin-top:14px;font-size:.78rem;letter-spacing:3px;color:var(--muted)}
+
+  /* About */
+  .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center;max-width:1000px;margin:0 auto}
+  .about-grid img{width:100%;border:1px solid var(--line)}
+  .about-grid p{margin-bottom:14px;color:#4a443b}
+  @media(max-width:780px){.about-grid{grid-template-columns:1fr;gap:30px}}
+
+  /* Process */
+  .process-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;max-width:1080px;margin:0 auto}
+  .process-item{position:relative;overflow:hidden;background:#16140f;border:1px solid var(--line)}
+  .process-item:nth-child(5n+1){grid-row:span 2}
+  .process-item img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s ease}
+  .process-item:hover img{transform:scale(1.04)}
+  .process-cap{position:absolute;left:0;right:0;bottom:0;padding:14px 16px 12px;background:linear-gradient(to top,rgba(10,9,7,.78),transparent);color:#f1ece2;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:.95rem;opacity:0;transition:opacity .3s ease}
+  .process-item:hover .process-cap{opacity:1}
+  @media(max-width:780px){
+    .process-grid{grid-template-columns:repeat(2,1fr)}
+    .process-item:nth-child(5n+1){grid-row:span 1}
+    .process-cap{opacity:1}
+  }
+
+  /* Contact */
+  footer{background:var(--stage);color:#e7e0d3;text-align:center;padding:80px 28px}
+  footer h2{font-size:2.2rem;letter-spacing:3px;margin-bottom:8px;color:#f4efe5}
+  footer .c a{display:inline-block;margin:10px 16px;text-decoration:none;color:#e7e0d3;letter-spacing:1px;border-bottom:1px solid transparent;padding-bottom:3px}
+  footer .c a:hover{color:var(--accent);border-color:var(--accent)}
+  footer .fine{margin-top:40px;font-size:.74rem;letter-spacing:2px;color:#8a8270}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap bar">
+    <div class="brand">Sofia Schambach</div>
+    <div class="links">
+      <a href="#work">Work</a>
+      <a href="#process">Process</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <img src="artworks/hero.jpg" alt="Diana la Cazadora, patinated bronze sculpture by Sofia Schambach">
+  <div class="veil"></div>
+  <div class="inner">
+    <h1>SOFIA&nbsp;SCHAMBACH</h1>
+    <div class="tag">Figurative Sculptor</div>
+    <div class="sub">Escultura figurativa &middot; Guatemala</div>
+  </div>
+</section>
+
+<!-- WORK / CAROUSEL -->
+<section class="sec" id="work">
+  <div class="wrap">
+    <div class="eyebrow">Selected Work</div>
+    <h2>The Figure</h2>
+    <p class="lead">Use the outer arrows to move between pieces. Where a piece has more than one photo, use the inner arrows or dots to see it from different angles.</p>
+
+    <div class="carousel">
+      <button class="cbtn prev" id="prev" aria-label="Previous piece">&#8249;</button>
+      <div class="stage">
+        <div class="imgwrap" id="imgwrap">
+          <span class="angle-count" id="angleCount"></span>
+          <button class="abtn aprev" id="aprev" aria-label="Previous angle">&#8249;</button>
+          <img id="cImg" src="" alt="">
+          <button class="abtn anext" id="anext" aria-label="Next angle">&#8250;</button>
+          <div class="angles" id="angles"></div>
+        </div>
+        <div class="credits">
+          <div class="num" id="cNum"></div>
+          <h3 id="cTitle"></h3>
+          <div class="meta">
+            <div class="field"><label>Year</label><div id="cYear"></div></div>
+            <div class="field"><label>Material</label><div id="cMaterial"></div></div>
+            <div class="field"><label>Dimensions</label><div id="cDim"></div></div>
+          </div>
+          <div class="note" id="cNote"></div>
+        </div>
+      </div>
+      <button class="cbtn next" id="next" aria-label="Next piece">&#8250;</button>
+    </div>
+    <div class="dots" id="dots"></div>
+    <div class="counter" id="counter"></div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="sec alt" id="process">
+  <div class="wrap">
+    <div class="eyebrow">Studio</div>
+    <h2>Process</h2>
+    <p class="lead">Unfinished work, raw clay, hands mid-motion — the studio before the patina.</p>
+    <div class="process-grid" id="processGrid"></div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="sec" id="about">
+  <div class="wrap">
+    <div class="eyebrow">About</div>
+    <h2>The Artist</h2>
+    <div style="height:40px"></div>
+    <div class="about-grid">
+      <img src="artworks/riko-01.jpg" alt="Riko, clay sculpture by Sofia Schambach">
+      <div>
+        <p>Sofia Schambach is a Guatemalan visual artist specializing in figurative sculpture, with a parallel practice in academic painting and drawing. She trained for three years at the Barcelona Academy of Art (2019&ndash;2022), studying figure modeling, anatomy, and academic drawing under instructors including the sculptor Eudald de Juana.</p>
+        <p>Nothing is symmetrical. The fat settles differently on every body, the bone pushes through in unexpected places, the flesh sags or swells in ways no diagram predicts. Schambach is drawn to the figure precisely because it is the most complex object she knows &mdash; an architecture of contradictions never fully solved.</p>
+        <p>She works primarily in clay, casting finished pieces in plaster, bronze, or resin. Her scale ranges from intimate studies to monumental commissions, including <em>Diana la Cazadora</em>, a 175&nbsp;cm patinated bronze created for a private client in Guatemala.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<footer id="contact">
+  <h2>Contact</h2>
+  <div class="c">
+    <a href="mailto:s.schambach.art@gmail.com">s.schambach.art@gmail.com</a>
+    <a href="https://instagram.com/sofiaschambach_" target="_blank" rel="noopener">@sofiaschambach_</a>
+  </div>
+  <div class="fine">&copy; <span id="yr"></span> Sofia Schambach &middot; All rights reserved</div>
+</footer>
+
+<script>
+  /* =====================================================================
+     EDIT YOUR ARTWORK CREDITS HERE
+     Each piece can have one or more "angles" (photos). The background
+     behind each photo is set per-angle to match that photo's own
+     background (bg: a hex color). Add more angles by adding more
+     entries to that piece's "angles" array, with a matching image
+     file in /artworks.
+     ===================================================================== */
+  var works = [
+    {
+      title:"Diana la Cazadora", year:"2023–2026",
+      material:"Patinated bronze, on natural stone base", dimensions:"175 cm height",
+      note:"Private commission, Guatemala",
+      angles:[
+        { img:"artworks/diana-01.jpg", bg:"#1f2418", alt:"Diana la Cazadora, full figure on stone base" }
+      ]
+    },
+    {
+      title:"Sandal", year:"2021",
+      material:"Clay, cast in resin", dimensions:"98 × 64 × 47 cm",
+      note:"",
+      angles:[
+        { img:"artworks/sandal-01.jpg", bg:"#0f0d0b", alt:"Sandal, full figure, finished in dark resin" },
+        { img:"artworks/sandal-07.jpg", bg:"#ece8e0", alt:"Sandal, full figure on white backdrop" },
+        { img:"artworks/sandal-02.jpg", bg:"#e9e3d6", alt:"Sandal, portrait detail" },
+        { img:"artworks/sandal-03.jpg", bg:"#e9e3d6", alt:"Sandal, back detail with crossed arm" },
+        { img:"artworks/sandal-04.jpg", bg:"#1a1714", alt:"Sandal, hand detail" },
+        { img:"artworks/sandal-05.jpg", bg:"#1a1714", alt:"Sandal, underarm detail" },
+        { img:"artworks/sandal-06.jpg", bg:"#1a1714", alt:"Sandal, chest detail" }
+      ]
+    },
+    {
+      title:"Riko", year:"2022",
+      material:"Clay (unfired)", dimensions:"175 cm height",
+      note:"",
+      angles:[
+        { img:"artworks/riko-01.jpg", bg:"#0c0b0a", alt:"Riko, full figure from behind" },
+        { img:"artworks/riko-02.jpg", bg:"#0c0b0a", alt:"Riko, frontal portrait and torso" },
+        { img:"artworks/riko-03.jpg", bg:"#0c0b0a", alt:"Riko, torso and hand detail" },
+        { img:"artworks/riko-04.jpg", bg:"#0c0b0a", alt:"Riko, right hand detail" },
+        { img:"artworks/riko-05.jpg", bg:"#e9e3d6", alt:"Riko, neck detail" }
+      ]
+    },
+    {
+      title:"Zara", year:"2021",
+      material:"Resin", dimensions:"97 × 65 cm",
+      note:"",
+      angles:[
+        { img:"artworks/zara-01.jpg", bg:"#0a0a0a", alt:"Zara, full torso from behind" },
+        { img:"artworks/zara-02.jpg", bg:"#0a0a0a", alt:"Zara, frontal chest detail" }
+      ]
+    },
+    {
+      title:"Aurora", year:"2020",
+      material:"Clay", dimensions:"",
+      note:"",
+      angles:[
+        { img:"artworks/aurora-01.jpg", bg:"#0c0b0a", alt:"Aurora, full figure reclining on rock" },
+        { img:"artworks/aurora-02.jpg", bg:"#0c0b0a", alt:"Aurora, back view" }
+      ]
+    },
+    {
+      title:"Jordi", year:"",
+      material:"Clay, cast in resin", dimensions:"",
+      note:"",
+      angles:[
+        { img:"artworks/jordi-01.jpg", bg:"#0a0a0a", alt:"Jordi, torso side view" }
+      ]
+    }
+  ];
+  /* ===================================================================== */
+
+  function isLight(hex){
+    var c = hex.replace('#','');
+    var r = parseInt(c.substring(0,2),16), g = parseInt(c.substring(2,4),16), b = parseInt(c.substring(4,6),16);
+    return (0.299*r + 0.587*g + 0.114*b) > 140;
+  }
+
+  var i = 0;   // current piece
+  var a = 0;   // current angle within piece
+  var el = function(id){ return document.getElementById(id); };
+  function box(text){ return '<span class="placeholder">+ add ' + text + '</span>'; }
+
+  function renderAngleDots(){
+    var wrap = el('angles');
+    wrap.innerHTML = '';
+    var angles = works[i].angles;
+    if(angles.length <= 1) return;
+    angles.forEach(function(_,k){
+      var b = document.createElement('button');
+      b.className = 'angle-dot' + (k===a ? ' active' : '');
+      b.setAttribute('aria-label','View angle '+(k+1));
+      b.addEventListener('click', function(){ a = k; renderAngle(); });
+      wrap.appendChild(b);
+    });
+  }
+
+  function renderAngle(){
+    var angle = works[i].angles[a];
+    var wrap = el('imgwrap');
+    wrap.style.background = angle.bg;
+    wrap.classList.toggle('on-light', isLight(angle.bg));
+    el('cImg').style.opacity = 0;
+    setTimeout(function(){
+      el('cImg').src = angle.img;
+      el('cImg').alt = angle.alt || works[i].title;
+      el('cImg').style.opacity = 1;
+    }, 120);
+    var angles = works[i].angles;
+    el('angleCount').textContent = angles.length > 1 ? (a+1) + ' / ' + angles.length : '';
+    el('aprev').style.display = angles.length > 1 ? 'flex' : 'none';
+    el('anext').style.display = angles.length > 1 ? 'flex' : 'none';
+    renderAngleDots();
+  }
+
+  function render(){
+    var w = works[i];
+    a = 0;
+    renderAngle();
+    el('cNum').textContent = 'Work ' + String(i+1).padStart(2,'0');
+    el('cTitle').innerHTML = w.title ? w.title : box('title');
+    el('cYear').innerHTML = w.year ? '<span class="val">'+w.year+'</span>' : box('year');
+    el('cMaterial').innerHTML = w.material ? '<span class="val">'+w.material+'</span>' : box('material');
+    el('cDim').innerHTML = w.dimensions ? '<span class="val">'+w.dimensions+'</span>' : box('dimensions');
+    el('cNote').innerHTML = w.note ? w.note : '<span class="placeholder">+ add a short note (optional)</span>';
+    el('counter').textContent = (i+1) + ' / ' + works.length;
+    document.querySelectorAll('.dot').forEach(function(d,k){ d.classList.toggle('active', k===i); });
+  }
+  function go(n){ i = (n + works.length) % works.length; render(); }
+  function goAngle(n){
+    var len = works[i].angles.length;
+    a = (n + len) % len;
+    renderAngle();
+  }
+
+  // piece dots
+  var dots = el('dots');
+  works.forEach(function(_,k){
+    var b = document.createElement('button');
+    b.className = 'dot'; b.setAttribute('aria-label','Go to work '+(k+1));
+    b.addEventListener('click', function(){ go(k); });
+    dots.appendChild(b);
+  });
+
+  el('prev').addEventListener('click', function(){ go(i-1); });
+  el('next').addEventListener('click', function(){ go(i+1); });
+  el('aprev').addEventListener('click', function(e){ e.stopPropagation(); goAngle(a-1); });
+  el('anext').addEventListener('click', function(e){ e.stopPropagation(); goAngle(a+1); });
+
+  document.addEventListener('keydown', function(e){
+    if(e.key==='ArrowLeft') go(i-1);
+    if(e.key==='ArrowRight') go(i+1);
+  });
+
+  // touch swipe (piece-to-piece on the stage, outside the image itself)
+  var sx=0;
+  var stage=document.querySelector('.stage');
+  stage.addEventListener('touchstart',function(e){ sx=e.changedTouches[0].clientX; },{passive:true});
+  stage.addEventListener('touchend',function(e){
+    var dx=e.changedTouches[0].clientX-sx;
+    if(dx>40) go(i-1); else if(dx<-40) go(i+1);
+  },{passive:true});
+
+  /* =====================================================================
+     PROCESS / STUDIO PHOTOS
+     Informal behind-the-scenes shots. Each gets a short italic caption,
+     no formal title or credits. Add more by adding lines here plus a
+     matching image in /artworks/process.
+     ===================================================================== */
+  var processPhotos = [
+    { img:"artworks/process/process-02.jpg", caption:"a torso still finding its shape" },
+    { img:"artworks/process/process-06.jpg", caption:"Aurora, before she had a face" },
+    { img:"artworks/process/process-01.jpg", caption:"closed eyes, half-formed" },
+    { img:"artworks/process/process-05.jpg", caption:"in conversation" },
+    { img:"artworks/process/process-03.jpg", caption:"profile, mid-thought" },
+    { img:"artworks/process/process-07.jpg", caption:"a quiet, unfinished face" },
+    { img:"artworks/process/process-08.jpg", caption:"Sandal, before the resin" },
+    { img:"artworks/process/process-04.jpg", caption:"a hand finding a hip" }
+  ];
+
+  var pg = el('processGrid');
+  processPhotos.forEach(function(p){
+    var item = document.createElement('div');
+    item.className = 'process-item';
+    item.innerHTML = '<img src="'+p.img+'" alt="'+p.caption+'" loading="lazy">' +
+                      '<div class="process-cap">'+p.caption+'</div>';
+    pg.appendChild(item);
+  });
+
+  el('yr').textContent = new Date().getFullYear();
+  render();
+</script>
+</body>
+</html>
